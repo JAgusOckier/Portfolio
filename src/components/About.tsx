@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="bg-section backdrop-blur-md rounded-xl p-8 mt-14">
+    <div className="bg-section backdrop-blur-md rounded-xl p-8 mt-14 scroll-mt-20">
       <div className="flex flex-col-reverse md:flex-row items-center gap-6">
         <div>
           <h1 className="text-3xl font-bold mb-4 text-left">Sobre mí</h1>
