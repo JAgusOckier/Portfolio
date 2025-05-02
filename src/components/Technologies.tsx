@@ -47,27 +47,38 @@ const icons = [
 
 const Technologies = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number>(0);
+  const speed = 0.8;
 
   useEffect(() => {
     const scroll = () => {
       if (scrollRef.current) {
-        scrollRef.current.scrollLeft += 1;
-        if (scrollRef.current.scrollLeft >= scrollRef.current.scrollWidth / 2) {
-          scrollRef.current.scrollLeft = 0;
+        const container = scrollRef.current;
+        container.scrollLeft += speed;
+        
+        if (container.scrollLeft >= container.scrollWidth / 2) {
+          container.scrollLeft = 0;
         }
       }
+      animationRef.current = requestAnimationFrame(scroll);
     };
 
-    const interval = setInterval(scroll, 30);
-    return () => clearInterval(interval);
+    animationRef.current = requestAnimationFrame(scroll);
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, []);
+
   return (
-    <div className=" p-4  mt-4">
+    <div className="p-4 mt-4">
       <h1 className="text-3xl font-bold text-center mb-1">Tecnologías</h1>
       <div className="overflow-hidden">
         <div
           ref={scrollRef}
-          className="flex gap-10 whitespace-nowrap px-6 hide-scrollbar py-6 select-none overflow-x-auto"
+          className="flex gap-10 whitespace-nowrap px-6 hide-scrollbar py-6 select-none overflow-x-auto will-change-transform"
         >
           {[...icons, ...icons].map((icon, index) => (
             <img
@@ -76,6 +87,7 @@ const Technologies = () => {
               alt={icon.name}
               height={50}
               className="h-[50px] w-auto opacity-90 hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           ))}
         </div>
@@ -85,3 +97,4 @@ const Technologies = () => {
 };
 
 export default Technologies;
+

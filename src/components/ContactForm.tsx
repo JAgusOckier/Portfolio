@@ -5,6 +5,7 @@ import emailjs from "@emailjs/browser";
 
 const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
 const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+const templateReplayId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_REPLAY_ID!;
 const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
 interface FormData {
@@ -85,6 +86,12 @@ const ContactForm = () => {
           formRef.current,
           publicKey
         );
+        await emailjs.sendForm(
+          serviceId,
+          templateReplayId, // ID de la plantilla que creaste
+          formRef.current,
+          publicKey
+        )
         setSubmitted(true);
         setForm({ name: "", email: "", message: "" });
       } catch (error) {
@@ -183,7 +190,7 @@ const ContactForm = () => {
 
         {submitted && (
           <p className="text-center text-base text-green-500">
-            ¡Mensaje enviado con te responderé pronto!
+            ¡Mensaje enviado con exito te responderé pronto!
           </p>
         )}
       </form>

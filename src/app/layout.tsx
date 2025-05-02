@@ -28,20 +28,23 @@ export default function RootLayout({
   const theme = typeof window !== "undefined" ? localStorage.getItem("theme") || "light" : "light";
   return (
     <html lang="es" data-theme={theme}>
+      <head>
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>
-          <header>
-            <Navbar />
-          </header>
-          <main className="flex justify-center">
-            <div className="w-full max-w-[800px]">{children}</div>
-          </main>
-          <footer>
-            <Footer />
-          </footer>
-        </ThemeProvider>
+      <ThemeProvider>
+        <header>
+        <Navbar />
+        </header>
+        <main className="flex justify-center">
+        <div className="w-full max-w-[800px]">{children}</div>
+        </main>
+        <footer>
+        <Footer />
+        </footer>
+      </ThemeProvider>
       </body>
     </html>
   );
